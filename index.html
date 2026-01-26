@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aurix | Shop</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+* { box-sizing:border-box; transition: all 0.3s ease; }
+
+html, body {
+    margin:0;
+    padding:0;
+    font-family: Inter, sans-serif;
+    color:white;
+    overflow-x:hidden;
+    background: radial-gradient(circle at top, #1a1a1a 0%, #000 60%), linear-gradient(180deg, #0d0d0d 0%, #000 100%);
+}
+
+body::before {
+    content:"";
+    position:fixed;
+    inset:0;
+    background: radial-gradient(circle at 20% 10%, rgba(255,255,255,0.03), transparent 40%);
+    pointer-events:none;
+}
+
+/* Header */
+header {
+    position: relative;
+    width: 60%;
+    height: 200px;
+    margin: 40px auto 20px;
+    border-radius: 18px;
+    overflow: hidden;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align:center;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+}
+
+header::before {
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image: url('saatlar.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: blur(0.6px);
+    transform: scale(1.1);
+    z-index:0;
+}
+
+header h1, header h2, header p {
+    position: relative;
+    z-index:1;
+    color: rgb(255, 255, 255);
+    text-shadow:-1px -1px 0 rgba(0,0,0,0.7),1px -1px 0 rgba(0,0,0,0.7),-1px 1px 0 rgba(0,0,0,0.7),1px 1px 0 rgba(0,0,0,0.7),0 2px 6px rgba(0,0,0,0.7);
+    opacity:0;
+}
+
+/* Animations for header */
+header h1 { font-size:36px; margin:0; animation: fadeDown 2s forwards; }
+header h2 { font-size:22px; margin:4px 0; font-weight:400; animation: fadeDown 2s 0.3s forwards; }
+header p { font-size:13px; margin-top:6px; color: rgba(255, 255, 255, 0.938); letter-spacing:0.4px; animation: fadeUp 2s 0.6s forwards; }
+
+@keyframes fadeDown {
+    from { opacity:0; transform:translateY(-30px);}
+    to { opacity:1; transform:translateY(0);}
+}
+
+@keyframes fadeUp {
+    from { opacity:0; transform:translateY(30px);}
+    to { opacity:1; transform:translateY(0);}
+}
+
+/* Products Grid */
+.products {
+    width:90%;
+    max-width:1000px;
+    margin:30px auto;
+    display:grid;
+    grid-template-columns: repeat(2,1fr);
+    gap:18px;
+}
+
+/* Product Card */
+.product {
+    position: relative;
+    background: rgba(255,255,255,0.03);
+    border-radius:14px;
+    padding:14px;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,0.5);
+    backdrop-filter: blur(6px);
+    cursor:pointer;
+    overflow:hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    opacity:0;
+}
+
+/* Animation classes */
+.product-left { animation: slideLeft 2s forwards; }
+.product-right { animation: slideRight 2s forwards; }
+
+@keyframes slideLeft {
+    from { opacity:0; transform:translateX(-100px); }
+    to { opacity:1; transform:translateX(0); }
+}
+
+@keyframes slideRight {
+    from { opacity:0; transform:translateX(100px); }
+    to { opacity:1; transform:translateX(0); }
+}
+
+.product:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow:0 18px 45px rgba(0,0,0,0.7);
+}
+
+/* Badge */
+.product span.badge {
+    position:absolute;
+    top:10px;
+    left:10px;
+    background: crimson;
+    padding:3px 8px;
+    border-radius:6px;
+    font-size:12px;
+    font-weight:600;
+    color:#fff;
+}
+
+/* Product Content */
+.product img { width:100%; border-radius:10px; margin-bottom:8px; }
+.product h3 { font-size:16px; margin:6px 0; text-shadow:0 1px 3px rgba(0,0,0,0.6); }
+
+/* Endirim qiyməti */
+.product p { font-size:14px; margin:0; opacity:0.9; }
+.product p del { color: rgba(255,255,255,0.5); margin-right:6px; }
+
+/* Contact */
+.contact { width:100%; margin:30px 0 40px; text-align:center; }
+.contact h3 { font-size:16px; margin-bottom:12px; opacity:0; animation: fadeUp 2s forwards; }
+.contact-buttons {
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+}
+.contact-buttons a {
+    min-width:120px;
+    min-height:40px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background: rgba(255,255,255,0.06);
+    color:white;
+    text-decoration:none;
+    border-radius:8px;
+    font-size:14px;
+    font-weight:500;
+    box-shadow:0 6px 18px rgba(0,0,0,0.5);
+    transition:0.3s;
+    position: relative;
+    overflow:hidden;
+    opacity:0;
+}
+.contact-buttons a.left { animation: slideLeft 2s forwards; }
+.contact-buttons a.right { animation: slideRight 2s forwards; }
+.contact-buttons a.center { animation: fadeUp 2s forwards; }
+
+.contact-buttons a:hover { background: rgba(255,255,255,0.12); transform: translateY(-3px); }
+
+/* Overlay for Product */
+#overlay {
+    position:fixed; top:0; left:0;
+    width:100%; height:100%;
+    background:rgba(0,0,0,0.95);
+    display:flex; justify-content:center; align-items:center;
+    z-index:999; display:none; flex-direction: column;
+}
+
+#overlay img {
+    max-width:90%; max-height:90%;
+    border-radius:12px; box-shadow:0 10px 40px rgba(0,0,0,0.7);
+    animation: popUp 0.4s ease;
+}
+
+#overlay .close {
+    position:absolute; top:20px; right:20px;
+    font-size:32px; font-weight:bold; color:white;
+    cursor:pointer; user-select:none;
+}
+
+@keyframes popUp { from{transform:scale(0.7); opacity:0;} to{transform:scale(1); opacity:1;} }
+
+@media(max-width:600px) { 
+    .products { grid-template-columns:1fr 1fr; }
+    header { width:90%; }
+}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Aurix</h1>
+    <p>Keyfiyyətli və Münasib</p>
+</header>
+
+<div class="products">
+    <div class="product product-left">
+        <span class="badge new">Yeni</span>
+        <img src="genevassat1ci.avif" data-large="genevassat1ci.avif">
+        <h3>Geneva Classic</h3>
+        <p><del>25 AZN</del>20 AZN</p>
+    </div>
+    <div class="product product-right">
+        <span class="badge top">Endirim</span>
+        <img src="genevagumus4cu.avif" data-large="genevagumus4cu.avif">
+        <h3>Geneva Silver</h3>
+        <p><del>35 AZN</del>30 AZN</p>
+    </div>
+    <div class="product product-left">
+        <span class="badge new">Top</span>
+        <img src="genevaqizil3cu.avif" data-large="genevaqizil3cu.avif">
+        <h3>Black Gold</h3>
+        <p><del>37 AZN</del>30 AZN</p>
+    </div>
+    <div class="product product-right">
+        <img src="grandtourungsaat2ci.avif" data-large="grandtourungsaat2ci.avif">
+        <h3>Grand Touring</h3>
+        <p><del>25 AZN</del>20 AZN</p>
+    </div>
+</div>
+
+<div class="contact">
+    <h3>Bizimlə Əlaqə</h3>
+    <div class="contact-buttons">
+        <a class="left" href="https://www.instagram.com/aurix_watch">İnstagram</a>
+        <a class="center" href="https://wa.me/994552863035">WhatsApp</a>
+        <a class="right" href="mailto:aurixwatch0@gmail.com">Email</a>
+    </div>
+</div>
+
+<!-- Overlay -->
+<div id="overlay">
+    <span class="close">&times;</span>
+    <img src="" alt="Product Preview">
+</div>
+
+<script>
+const overlay = document.getElementById('overlay');
+const overlayImg = overlay.querySelector('img');
+const closeBtn = overlay.querySelector('.close');
+
+document.querySelectorAll('.product').forEach(product => {
+    product.addEventListener('click', () => {
+        const img = product.querySelector('img');
+        overlayImg.src = img.dataset.large;
+        overlay.style.display = 'flex';
+    });
+});
+
+closeBtn.addEventListener('click', () => {
+    overlay.style.display = 'none';
+});
+</script>
+
+</body>
+</html>
